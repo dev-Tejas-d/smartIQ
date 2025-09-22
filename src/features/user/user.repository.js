@@ -42,11 +42,46 @@ export default class UserRepository{
                     return "User not found"
                 }
                 if(user.otp == otp){
+                  user.isVerified = true;
+                  await UserModel.save()
                   return {text:"Verified", user}  
                 }
             }
             catch(error){
                 throw new Error(error)
+            }
+        }
+
+        async forgotPassword(email, otp){
+            try{
+                let user = await UserModel.findOne({email});
+                if(!user){
+                    return "User not found"
+                }
+                let newOtp = await UserModel.findOneAndUpdate({email},{$set: {otp}});
+                return `Otp sent to your email : ${email}`;
+            }
+            catch(error){
+                throw new Error(error)
+            }
+        }
+
+        async changePass(email, otp, password){
+            try{
+                let user = await UserModel.findOne({email});
+                if(!user){
+                    return "User not found"
+                }
+                if(user.otp == otp){
+                   let result =  await UserModel.findOneAndUpdate({email},{$set:{password}})
+                    return "Password changes succesfully"
+                }
+                else{
+                    return "Wrong otp"
+                }
+            }
+            catch(error){
+                  throw new Error(error)
             }
         }
 }

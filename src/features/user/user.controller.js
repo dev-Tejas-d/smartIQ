@@ -53,4 +53,20 @@ export default class UserController{
             throw new Error(error)
         }
     }
+
+    async forgotPassword(req, res){
+        const {email} = req.body;
+        const otp = Math.floor(Math.random() * 9000) +1000;
+        sendOtp(email,otp);
+        let setOTPinDb = await this.userRepository.forgotPassword(email, otp);
+        res.status(200).send(setOTPinDb)
+    }
+
+    async checkOtpAndChangePass(req, res){
+        let hashedPassword = await bcrypt.hash(req.body.password, 12);
+        req.body.password = hashedPassword
+        const {email, otp, password}=req.body;
+        const result = await this.userRepository.changePass(email, otp, password);
+          res.status(200).send(result)
+    }
 }

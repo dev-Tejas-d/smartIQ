@@ -24,7 +24,11 @@ export const UserSchema = new mongoose.Schema({
             type:String,
             enum:["JEE", "NEET", "NDA", "SCC", "Boards"]
         },
+        isVerified:{
+            type:Boolean,
+            default:false
+        },
         otp:{
-        type:Number,
+        type:Number
         }
 })

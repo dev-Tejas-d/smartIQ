@@ -17,4 +17,11 @@ userRouter.post('/verify', (req, res)=>{
     userController.verifyOtp(req, res)
 } )
 
+userRouter.post('/forgotPassword', (req, res)=>{
+    userController.forgotPassword(req, res)
+})
+
+userRouter.post('/changePassword', (req, res)=>{
+    userController.checkOtpAndChangePass(req, res)
+})
 export default userRouter

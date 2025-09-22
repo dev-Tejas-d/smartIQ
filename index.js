@@ -1,3 +1,4 @@
+//creating server
 import express from "express"
 import { connectingUsingMongoose } from "./src/config/mongoose.config.js";
 import userRouter from "./src/features/user/user.routes.js";

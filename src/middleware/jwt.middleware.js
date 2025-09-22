@@ -5,6 +5,4 @@ const jwtAuth = (req, res, next)=>{
     if(!token){
         return next(new Error("Register or login please"))
     }
-    
-    
 }

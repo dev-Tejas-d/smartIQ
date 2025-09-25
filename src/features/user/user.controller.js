@@ -1,6 +1,8 @@
 import UserRepository from "./user.repository.js"
 import bcrypt from "bcrypt"
 import { sendOtp } from "../../email/OTPEmail.js";
+import jwt from "jsonwebtoken"
+
 
 
 export default class UserController{
@@ -33,6 +35,22 @@ export default class UserController{
         if(!result){
             throw new Error("Somethig went Wrong")
         }
+        let token = jwt.sign(
+            {
+                userId : result.id,
+                userEmail:result.email,
+                Usercourse:result.course
+            },
+            "2qMT23tuZGamkIddI5rMdI1r6yh6uwS2",
+            {
+                expiresIn:'1h'
+            }
+        )
+        res.cookie('token', token, {
+            httpOnly: true,        
+            secure: false,         
+            sameSite: 'lax'
+        })
         res.status(200).send(result)
         }
         catch(error){

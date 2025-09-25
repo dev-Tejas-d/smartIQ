@@ -43,7 +43,7 @@ export default class UserRepository{
                 }
                 if(user.otp == otp){
                   user.isVerified = true;
-                  await UserModel.save()
+                  await user.save()
                   return {text:"Verified", user}  
                 }
             }

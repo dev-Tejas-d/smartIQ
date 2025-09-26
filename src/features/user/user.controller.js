@@ -87,4 +87,14 @@ export default class UserController{
         const result = await this.userRepository.changePass(email, otp, password);
           res.status(200).send(result)
     }
+
+    async logout(req, res){
+        res.clearCookie('token',{
+             httpOnly: true,
+             secure: false, 
+             sameSite: 'lax'
+        });
+        res.status(200).send("Logout successfull");
+
+    }
 }

@@ -21,12 +21,16 @@ userRouter.post('/verify', jwtAuth, (req, res)=>{
     userController.verifyOtp(req, res)
 } )
 
-userRouter.post('/forgotPassword', (req, res)=>{
+userRouter.post('/forgotPassword', jwtAuth, (req, res)=>{
     userController.forgotPassword(req, res)
 })
 
-userRouter.post('/changePassword', (req, res)=>{
+userRouter.post('/changePassword', jwtAuth, (req, res)=>{
     userController.checkOtpAndChangePass(req, res)
+})
+
+userRouter.post('/logout', (req,res)=>{
+    userController.logout(req, res)
 })
 
 userRouter.post

@@ -24,6 +24,11 @@ export const UserSchema = new mongoose.Schema({
             type:String,
             enum:["JEE", "NEET", "NDA", "SCC", "Boards"]
         },
+        role:{
+            type:String,
+            enum:["user", "admin"],
+            default:"admin"
+        },
         isVerified:{
             type:Boolean,
             default:false
